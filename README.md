@@ -67,3 +67,8 @@ Each trajectory JSON contains a `cameras` list in generation order. Each entry g
 Outputs include `final_world.mp4` (rendered Gaussian scene), `direct_rgb.mp4` (direct RGB predictions), `world.ply` (3D Gaussians), `session_cameras.pt`, and, when references are used, `reference_views.jpg`. Videos are saved at 8 fps. Use `python infer.py --help` to list the supported options.
 
 For advanced inference options, including session continuation and additional query views, use `python infer_ar.py --help`.
+
+## Acknowledgements
+We acknowledge the following open-source projects for their contributions and references to the field:
+- [FlashWorld](https://github.com/imlixinyang/FlashWorld)
+- [BiWM](https://github.com/LynnReal-AI/BiWM)
