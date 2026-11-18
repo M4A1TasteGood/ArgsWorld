@@ -1,0 +1,16 @@
+# Install a matching CUDA build of torch and torchvision first; see README.md.
+accelerate>=1.5,<2
+diffusers==0.36.0
+einops>=0.8,<1
+gsplat==1.5.2
+imageio[ffmpeg]>=2.34,<3
+ninja>=1.11,<2
+numpy>=1.26,<3
+Pillow>=10,<14
+plyfile>=1.1,<2
+protobuf>=5,<8
+safetensors>=0.5,<1
+sentencepiece>=0.2,<1
+transformers>=4.56,<6
+
+
