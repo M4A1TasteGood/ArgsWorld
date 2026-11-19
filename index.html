@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArgsWorld</title>
+  <meta name="description" content="ArgsWorld unifies 3D Gaussian scene reconstruction, generation, and extrapolation with an autoregressive diffusion transformer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,460;6..72,560&family=Outfit:wght@380;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1c1915;
+      --muted: #5e574e;
+      --line: #e4ddd3;
+      --paper: #f7f3ec;
+      --card: #fffdf9;
+      --accent: #9a4a22;
+      --accent-soft: #f3e4d8;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 80% -10%, #f3e6d4 0%, transparent 60%),
+        var(--paper);
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 380;
+      line-height: 1.55;
+    }
+
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #6e3114; }
+
+    .wrap { width: min(980px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0 8px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    header nav { display: flex; gap: 18px; }
+    header a { color: var(--muted); text-decoration: none; }
+    header a:hover { color: var(--ink); }
+
+    h1 {
+      font-family: Newsreader, Georgia, serif;
+      font-weight: 460;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin: 28px 0 14px;
+    }
+    .subtitle {
+      max-width: 720px;
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 18px;
+    }
+    .authors { margin: 0 0 22px; font-size: 15px; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fffdf9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .btn.ghost { background: transparent; color: var(--ink); }
+    .btn:hover { background: #3a332c; color: #fff; }
+    .btn.ghost:hover { background: var(--ink); color: #fff; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+    figure { margin: 0; }
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      background: #ddd;
+    }
+    figcaption {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    section { margin-bottom: 52px; }
+    h2 {
+      font-family: Newsreader, Georgia, serif;
+      font-weight: 560;
+      font-size: 28px;
+      margin: 0 0 12px;
+    }
+    p { margin: 0 0 12px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 16px 14px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+    .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    pre {
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      overflow-x: auto;
+      border-radius: 12px;
+      background: #231e1a;
+      color: #f4ece3;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    code { font-family: Consolas, "SFMono-Regular", ui-monospace, monospace; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 18px 0 36px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span>CVPR project page</span>
+      <nav>
+        <a href="#tasks">Tasks</a>
+        <a href="#inference">Inference</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </header>
+
+    <h1>ArgsWorld</h1>
+    <p class="subtitle">Unifying 3DGS scene reconstruction, generation, and extrapolation with an autoregressive diffusion transformer.</p>
+    <p class="authors">Anonymous Authors</p>
+
+    <div class="actions">
+      <a class="btn" href="https://huggingface.co/M4A1TasteGood/ArgsWorld">Weights</a>
+      <a class="btn ghost" href="https://github.com/M4A1TasteGood/ArgsWorld">Code</a>
+      <a class="btn ghost" href="#citation">Paper</a>
+    </div>
+
+    <div class="hero">
+      <figure>
+        <img src="assets/reference.png" alt="Example bedroom reference view from RealEstate10K" />
+        <figcaption>Example reference view included with the inference code (RealEstate10K).</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/view_0003.png" alt="Another view of the same bedroom scene" />
+        <figcaption>A second posed view of the same scene, used for reconstruction.</figcaption>
+      </figure>
+    </div>
+
+    <section>
+      <h2>Overview</h2>
+      <p>
+        ArgsWorld is a single autoregressive model for 3D Gaussian scenes.
+        Reconstruction, generation, and extrapolation share the same weights:
+        reconstruction is conditioned generation from a few posed views, not a separate per-scene optimization.
+      </p>
+      <p>
+        Given camera trajectories in OpenGL camera-to-world form, the model writes a Gaussian scene
+        (<code>world.ply</code>), a rendered video (<code>final_world.mp4</code>), and direct RGB predictions (<code>direct_rgb.mp4</code>).
+      </p>
+    </section>
+
+    <section id="tasks">
+      <h2>Three tasks, one model</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">Reconstruction</span>
+          <h3>From sparse views</h3>
+          <p>At least two images of the same scene, matched to camera slots on the trajectory.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Generation</span>
+          <h3>From one image</h3>
+          <p>A reference image, a text prompt, and up to 24 cameras produce a new set of views. Text-only generation is also supported.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Extrapolation</span>
+          <h3>Beyond the first chunk</h3>
+          <p>Continue the same scene along a second trajectory. The first segment fixes the coordinate frame and scale.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="inference">
+      <h2>Inference</h2>
+      <p>Linux, Python 3.11 or 3.12, and an NVIDIA GPU with BF16. Install the CUDA builds of PyTorch, then:</p>
+      <pre><code>python -m pip install -r requirements.txt
+
+python infer.py --mode generation \
+  --model_id weights/Wan2.2-TI2V-5B-Diffusers \
+  --ckpt weights/argsworld.ckpt \
+  --input_dir examples --output_dir outputs/generation \
+  --trajectory trajectory.json --images reference.png</code></pre>
+      <p style="margin-top:14px">
+        Weights: <a href="https://huggingface.co/M4A1TasteGood/ArgsWorld">Hugging Face</a>.
+        Inference also needs the Wan2.2-TI2V-5B-Diffusers base model.
+      </p>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+      <p>Replace this block with the camera-ready BibTeX.</p>
+      <pre><code>@inproceedings{argsworld,
+  title     = {ArgsWorld: Unifying 3DGS Scene Reconstruction, Generation and Extrapolation with Autoregressive Diffusion Transformer},
+  author    = {Anonymous},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2026}
+}</code></pre>
+    </section>
+
+    <footer>
+      Placeholder project page. Author names, the paper link, and the code URL are still to be filled in.
+    </footer>
+  </div>
+</body>
+</html>
