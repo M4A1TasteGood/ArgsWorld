@@ -10,7 +10,6 @@ function reconstructionScene(id, title, category, slots = [0, 8, 15, 23]) {
 window.argsWorldScenes = {
   reconstruction: [
     reconstructionScene("rec-garden-pond", "Garden pond", "Nature"),
-    reconstructionScene("rec-sunset-waterfront", "Sunset waterfront", "Nature"),
     reconstructionScene("rec-red-auditorium", "Red-seat auditorium", "Interiors"),
     reconstructionScene("rec-showcase-pavilion", "Garden pavilion", "Architecture"),
     reconstructionScene("rec-poolside-terrace", "Poolside terrace", "Architecture"),
@@ -48,11 +47,8 @@ window.argsWorldScenes = {
   ],
   extrapolation: [
     { id: "ext-living-dining", title: "Living and dining room", category: "Interiors" },
-    { id: "ext-sandstone-arch", title: "Sandstone arch", category: "Nature" },
     { id: "ext-seaside-village", title: "Seaside village", category: "Aerial" },
     { id: "ext-window-lounge", title: "Window-side lounge", category: "Interiors" },
-    { id: "ext-lagoon-resort", title: "Lagoon resort", category: "Aerial" },
-    { id: "ext-redwood-trail", title: "Redwood trail", category: "Nature" },
     { id: "ext-woodland-cabin", title: "Woodland cabin", category: "Architecture" },
     { id: "ext-sunlit-sitting", title: "Sunlit sitting room", category: "Interiors" },
     { id: "ext-bunk-room", title: "Bunk room", category: "Interiors" },
