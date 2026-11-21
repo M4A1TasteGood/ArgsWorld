@@ -6,20 +6,16 @@ const galleryVideos = document.querySelectorAll(".scene-video");
 function enableGallery(section, scenes) {
   const viewer = section.querySelector(".viewer");
   const scenePicker = section.querySelector(".scene-picker");
-  const groups = section.querySelector(".scene-groups");
-  const filters = section.querySelector(".scene-filters");
+  const list = section.querySelector(".scene-list");
   const count = section.querySelector(".scene-count");
   const video = section.querySelector(".scene-video");
   const referenceViews = viewer.querySelector(".reference-views");
   const playButton = section.querySelector(".play-scene");
   const title = section.querySelector(".scene-title");
-  const categoryLabel = section.querySelector(".scene-category");
   const errorMessage = section.querySelector(".video-error");
   const videoLinks = section.querySelectorAll(".scene-video a, .video-error a");
   const viewSwitch = section.querySelector(".view-switch");
   const outputs = viewSwitch.querySelectorAll("button");
-  const categories = new Map();
-  const categoryButtons = new Map();
   const sceneButtons = new Map();
   let currentScene;
   let currentOutput = "render";
@@ -77,7 +73,6 @@ function enableGallery(section, scenes) {
     video.setAttribute("aria-label", scene.title + (direct ? " direct RGB video" : " 3D Gaussian render"));
     for (const link of videoLinks) link.href = source;
     title.textContent = scene.title;
-    categoryLabel.textContent = scene.category;
     viewSwitch.hidden = scene.direct === false;
     for (const [sceneId, button] of sceneButtons) {
       button.setAttribute("aria-pressed", String(sceneId === scene.id));
@@ -87,38 +82,6 @@ function enableGallery(section, scenes) {
     errorMessage.hidden = true;
 
     if (continuePlayback) playVideo();
-  }
-
-  function createSceneGroup(category) {
-    const group = document.createElement("section");
-    group.className = "scene-group";
-    const heading = document.createElement("h3");
-    heading.className = "scene-group-title";
-    heading.id = section.id + "-category-" + categories.size;
-    heading.textContent = category;
-    group.setAttribute("aria-labelledby", heading.id);
-    const list = document.createElement("div");
-    list.className = "scene-list";
-    group.append(heading, list);
-    groups.append(group);
-    return { group, list };
-  }
-
-  function selectCategory(category) {
-    let visibleCount = 0;
-    for (const [name, { group, list }] of categories) {
-      const visible = category === null || category === name;
-      group.hidden = !visible;
-      if (visible) visibleCount += list.childElementCount;
-    }
-    for (const [name, filter] of categoryButtons) {
-      filter.setAttribute("aria-pressed", String(category === name));
-    }
-    count.textContent = visibleCount + (visibleCount === 1 ? " scene" : " scenes");
-  }
-
-  for (const name of [...new Set(scenes.map((scene) => scene.category))].sort()) {
-    categories.set(name, createSceneGroup(name));
   }
 
   for (const scene of scenes) {
@@ -156,18 +119,8 @@ function enableGallery(section, scenes) {
       playbackControl.focus({ preventScroll: true });
       if (video.paused) playVideo();
     });
-    categories.get(scene.category).list.append(button);
+    list.append(button);
     sceneButtons.set(scene.id, button);
-  }
-
-  for (const category of [null, ...categories.keys()]) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "scene-filter";
-    button.textContent = category ?? "All";
-    button.addEventListener("click", () => selectCategory(category));
-    filters.append(button);
-    categoryButtons.set(category, button);
   }
 
   for (const button of outputs) {
@@ -195,7 +148,7 @@ function enableGallery(section, scenes) {
   });
   playButton.addEventListener("click", playVideo);
 
-  selectCategory(null);
+  count.textContent = scenes.length + (scenes.length === 1 ? " scene" : " scenes");
   showScene(scenes[0]);
   scenePicker.hidden = false;
   viewer.querySelector(".browse-scenes").hidden = false;
@@ -215,39 +168,20 @@ if ("IntersectionObserver" in window) {
 }
 
 const heroVideo = byId("hero-video");
-const motionButton = byId("hero-motion");
-const motionLabel = motionButton.querySelector(".motion-label");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let heroVisible = !("IntersectionObserver" in window);
-let motionOverride;
-
-function updateMotionControl() {
-  const action = heroVideo.paused ? "Play" : "Pause";
-  motionLabel.textContent = action + " video";
-  motionButton.setAttribute("aria-label", action + " background video");
-}
 
 function updateHeroPlayback() {
-  const wantsMotion = motionOverride ?? !reducedMotion.matches;
-  if (heroVisible && !document.hidden && wantsMotion) {
-    heroVideo.play().catch(updateMotionControl);
+  if (heroVisible && !document.hidden && !reducedMotion.matches) {
+    heroVideo.play().catch(() => {});
   } else {
     heroVideo.pause();
   }
-  updateMotionControl();
 }
 
-motionButton.addEventListener("click", () => {
-  motionOverride = heroVideo.paused;
-  updateHeroPlayback();
-});
-heroVideo.addEventListener("play", updateMotionControl);
-heroVideo.addEventListener("pause", updateMotionControl);
-heroVideo.addEventListener("error", () => { motionButton.hidden = true; });
 reducedMotion.addEventListener("change", updateHeroPlayback);
 document.addEventListener("visibilitychange", updateHeroPlayback);
 heroVideo.muted = true;
-motionButton.hidden = false;
 updateHeroPlayback();
 
 if ("IntersectionObserver" in window) {
