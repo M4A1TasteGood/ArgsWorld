@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;650;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/scenes.js" defer></script>
+  <script src="assets/motion-data.js" defer></script>
+  <script src="assets/trajectory.js" defer></script>
   <script src="assets/site.js" defer></script>
 </head>
 <body>
@@ -114,11 +116,30 @@
         </header>
 
         <div class="gallery">
-          <div class="viewer" id="generation-viewer">
-            <div class="video-frame">
-              <video class="scene-video" controls loop muted playsinline preload="none" poster="assets/gallery/gen-ceramics-gallery.webp" src="assets/gallery/gen-ceramics-gallery.mp4" aria-label="Ceramics gallery 3D Gaussian render" aria-describedby="generation-details"><a href="assets/gallery/gen-ceramics-gallery.mp4">Download the video</a>.</video>
-              <button class="video-play play-scene" type="button" aria-label="Play Ceramics gallery" hidden><span class="play-icon" aria-hidden="true"></span></button>
-              <p class="video-error" role="status" hidden>Playback failed. <a href="assets/gallery/gen-ceramics-gallery.mp4">Open the video file</a>.</p>
+          <div class="viewer motion-viewer" id="generation-viewer">
+            <div class="motion-layout">
+              <aside class="motion-sidebar" aria-label="Generation scene information">
+                <div class="motion-panel">
+                  <h3 class="motion-reference-heading">Initial generated view</h3>
+                  <img class="motion-reference" alt="" hidden>
+                  <p class="motion-reference-unavailable" hidden>Initial generated view unavailable.</p>
+                </div>
+                <div class="motion-panel">
+                  <h3>Camera Path</h3>
+                  <div class="trajectory-frame">
+                    <canvas class="trajectory-canvas" role="img" aria-label="Camera path with current position synchronized to the output video" hidden></canvas>
+                    <p class="trajectory-unavailable">Camera path unavailable.</p>
+                  </div>
+                </div>
+              </aside>
+              <div class="motion-output">
+                <h3>Output</h3>
+                <div class="video-frame">
+                  <video class="scene-video" controls loop muted playsinline preload="none" poster="assets/gallery/gen-ceramics-gallery.webp" src="assets/gallery/gen-ceramics-gallery.mp4" aria-label="Ceramics gallery 3D Gaussian render" aria-describedby="generation-details"><a href="assets/gallery/gen-ceramics-gallery.mp4">Download the video</a>.</video>
+                  <button class="video-play play-scene" type="button" aria-label="Play Ceramics gallery" hidden><span class="play-icon" aria-hidden="true"></span></button>
+                  <p class="video-error" role="status" hidden>Playback failed. <a href="assets/gallery/gen-ceramics-gallery.mp4">Open the video file</a>.</p>
+                </div>
+              </div>
             </div>
             <div class="viewer-info">
               <div class="scene-caption" id="generation-details" aria-live="polite" aria-atomic="true">
@@ -152,11 +173,30 @@
         </header>
 
         <div class="gallery">
-          <div class="viewer" id="extrapolation-viewer">
-            <div class="video-frame">
-              <video class="scene-video" controls loop muted playsinline preload="none" poster="assets/gallery/ext-living-dining.webp" src="assets/gallery/ext-living-dining.mp4" aria-label="Living and dining room 3D Gaussian render" aria-describedby="extrapolation-details"><a href="assets/gallery/ext-living-dining.mp4">Download the video</a>.</video>
-              <button class="video-play play-scene" type="button" aria-label="Play Living and dining room" hidden><span class="play-icon" aria-hidden="true"></span></button>
-              <p class="video-error" role="status" hidden>Playback failed. <a href="assets/gallery/ext-living-dining.mp4">Open the video file</a>.</p>
+          <div class="viewer motion-viewer" id="extrapolation-viewer">
+            <div class="motion-layout">
+              <aside class="motion-sidebar" aria-label="Extrapolation scene information">
+                <div class="motion-panel">
+                  <h3 class="motion-reference-heading">Reference image</h3>
+                  <img class="motion-reference" alt="" hidden>
+                  <p class="motion-reference-unavailable">Reference image unavailable.</p>
+                </div>
+                <div class="motion-panel">
+                  <h3>Camera Path</h3>
+                  <div class="trajectory-frame">
+                    <canvas class="trajectory-canvas" role="img" aria-label="Camera path with current position synchronized to the output video" hidden></canvas>
+                    <p class="trajectory-unavailable">Camera path unavailable.</p>
+                  </div>
+                </div>
+              </aside>
+              <div class="motion-output">
+                <h3>Output</h3>
+                <div class="video-frame">
+                  <video class="scene-video" controls loop muted playsinline preload="none" poster="assets/gallery/ext-living-dining.webp" src="assets/gallery/ext-living-dining.mp4" aria-label="Living and dining room 3D Gaussian render" aria-describedby="extrapolation-details"><a href="assets/gallery/ext-living-dining.mp4">Download the video</a>.</video>
+                  <button class="video-play play-scene" type="button" aria-label="Play Living and dining room" hidden><span class="play-icon" aria-hidden="true"></span></button>
+                  <p class="video-error" role="status" hidden>Playback failed. <a href="assets/gallery/ext-living-dining.mp4">Open the video file</a>.</p>
+                </div>
+              </div>
             </div>
             <div class="viewer-info">
               <div class="scene-caption" id="extrapolation-details" aria-live="polite" aria-atomic="true">
