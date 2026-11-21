@@ -16,13 +16,65 @@ function enableGallery(section, scenes) {
   const videoLinks = section.querySelectorAll(".scene-video a, .video-error a");
   const viewSwitch = section.querySelector(".view-switch");
   const outputs = viewSwitch.querySelectorAll("button");
+  const motionImage = viewer.querySelector(".motion-reference");
+  const motionImageHeading = viewer.querySelector(".motion-reference-heading");
+  const motionImageUnavailable = viewer.querySelector(".motion-reference-unavailable");
+  const pathCanvas = viewer.querySelector(".trajectory-canvas");
+  const pathUnavailable = viewer.querySelector(".trajectory-unavailable");
+  const trajectory = pathCanvas && typeof window.createTrajectory === "function"
+    ? window.createTrajectory(pathCanvas, video) : null;
   const sceneButtons = new Map();
   let currentScene;
   let currentOutput = "render";
+  let imageRequest = 0;
+  let videoRevision = 0;
+
+  function updateTrajectory() {
+    if (trajectory && !pathCanvas.hidden) trajectory.update();
+  }
+
+  function showMotion(scene) {
+    if (!motionImage) return;
+    const data = window.argsWorldMotion?.[scene.id];
+    const isGeneration = section.id === "generation";
+    const reference = data?.reference;
+    const imageSource = reference || (isGeneration ? "assets/initial-views/" + scene.id + ".webp" : null);
+    const request = ++imageRequest;
+    motionImageHeading.textContent = reference ? "Reference image" : (isGeneration ? "Initial generated view" : "Reference image");
+    motionImage.hidden = true;
+    motionImageUnavailable.hidden = false;
+    const unavailableText = isGeneration && !reference ? "Initial generated view unavailable." : "Reference image unavailable.";
+    motionImageUnavailable.textContent = imageSource ? "Loading image…" : unavailableText;
+    motionImage.removeAttribute("src");
+    if (imageSource) {
+      motionImage.alt = (reference ? "Reference image for " : "Initial generated view of ") + scene.title;
+      const image = new Image();
+      image.onload = () => {
+        if (request !== imageRequest) return;
+        motionImage.src = imageSource;
+        motionImage.hidden = false;
+        motionImageUnavailable.hidden = true;
+      };
+      image.onerror = () => {
+        if (request === imageRequest) motionImageUnavailable.textContent = unavailableText;
+      };
+      image.src = imageSource;
+    }
+
+    const hasPath = Boolean(trajectory && Array.isArray(data?.positions) && data.positions.length > 1);
+    pathCanvas.hidden = !hasPath;
+    pathUnavailable.hidden = hasPath;
+    if (hasPath) {
+      trajectory.setScene(data);
+      updateTrajectory();
+      requestAnimationFrame(updateTrajectory);
+    }
+  }
 
   function playVideo() {
+    const revision = videoRevision;
     video.play().catch(() => {
-      if (video.paused && !video.error) playButton.hidden = false;
+      if (revision === videoRevision && video.paused && !video.error) playButton.hidden = false;
     });
   }
 
@@ -60,12 +112,16 @@ function enableGallery(section, scenes) {
   }
 
   function showScene(scene, continuePlayback = false) {
-    if (currentScene !== scene) showReferenceViews(scene.inputs ?? []);
+    if (currentScene !== scene) {
+      showReferenceViews(scene.inputs ?? []);
+      showMotion(scene);
+    }
     currentScene = scene;
     const direct = scene.direct !== false && currentOutput === "direct";
     const base = "assets/gallery/" + scene.id + (direct ? "-direct" : "");
     const source = base + ".mp4";
 
+    videoRevision++;
     video.pause();
     video.controls = false;
     video.poster = base + ".webp";
@@ -142,7 +198,11 @@ function enableGallery(section, scenes) {
     if (document.activeElement === playButton) video.focus({ preventScroll: true });
     playButton.hidden = true;
   });
+  for (const event of ["timeupdate", "seeking", "seeked", "loadedmetadata", "durationchange", "ended", "pause"]) {
+    video.addEventListener(event, updateTrajectory);
+  }
   video.addEventListener("error", () => {
+    if (!video.error) return;
     playButton.hidden = true;
     errorMessage.hidden = false;
   });
