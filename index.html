@@ -23,7 +23,7 @@
         <a href="#reconstruction">Reconstruction</a>
         <a href="#generation">Generation</a>
         <a href="#extrapolation">Extrapolation</a>
-        <a href="#method">Architecture</a>
+        <a href="#method">Method Overview</a>
       </nav>
     </div>
   </header>
@@ -33,7 +33,7 @@
       <video id="hero-video" class="hero-video" muted loop playsinline preload="none" poster="assets/hero-poster.webp" src="assets/hero-loop.mp4" aria-hidden="true"></video>
       <div class="shell hero-inner">
         <h1 id="title">Args<span>World</span></h1>
-        <p class="paper-title">Unifying 3DGS Scene Reconstruction, Generation and Extrapolation with Autoregressive Diffusion Transformer</p>
+        <p class="paper-title">Unifying 3DGS Scene <span class="title-task title-task--reconstruction">Reconstruction</span>, <span class="title-task title-task--generation">Generation</span> and <span class="title-task title-task--extrapolation">Extrapolation</span> with Autoregressive Diffusion Transformer</p>
         <ul class="authors" aria-label="Authors">
           <li>Weiming Chen<sup>1</sup></li>
           <li>Shuaiyan Liu<sup>2</sup></li>
@@ -49,12 +49,11 @@
           <p><span><sup>†</sup> Corresponding authors.</span> · <span><sup>‡</sup> Project lead.</span></p>
         </div>
         <div class="hero-actions">
-          <a class="button button-primary" href="https://github.com/M4A1TasteGood/ArgsWorld">Code</a>
-          <a class="button" href="https://huggingface.co/M4A1TasteGood/ArgsWorld">Weights</a>
-          <a class="button button-results" href="#results">View results</a>
+          <a class="button button-primary" href="https://github.com/M4A1TasteGood/ArgsWorld"><svg class="button-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.1c-3.09.67-3.74-1.31-3.74-1.31-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15.99 1.7 2.59 1.21 3.22.93.1-.72.39-1.21.7-1.49-2.47-.28-5.07-1.24-5.07-5.49 0-1.21.43-2.2 1.14-2.98-.11-.28-.49-1.41.11-2.94 0 0 .93-.3 3.05 1.14A10.6 10.6 0 0 1 12 6.23c.94 0 1.88.13 2.76.37 2.12-1.44 3.05-1.14 3.05-1.14.6 1.53.22 2.66.11 2.94.71.78 1.14 1.77 1.14 2.98 0 4.26-2.6 5.2-5.08 5.48.4.35.75 1.02.75 2.06v3.07c0 .3.2.65.76.54A11.1 11.1 0 0 0 12 .9Z"/></svg>Code</a>
+          <a class="button" href="https://huggingface.co/M4A1TasteGood/ArgsWorld"><span class="button-emoji" aria-hidden="true">🤗</span>Weights</a>
+          <a class="button button-results" href="#results"><svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>View results</a>
         </div>
       </div>
-      <button class="hero-motion" id="hero-motion" type="button" hidden><span class="motion-label">Pause video</span></button>
     </section>
 
     <div class="shell results" id="results" tabindex="-1">
@@ -86,7 +85,6 @@
             <div class="viewer-info">
               <div class="scene-caption" id="reconstruction-details" aria-live="polite" aria-atomic="true">
                 <h3 class="scene-title">Garden pond</h3>
-                <p class="scene-category">Nature</p>
               </div>
               <div class="viewer-actions">
                 <a class="browse-scenes" href="#reconstruction-scenes" hidden>Browse scenes</a>
@@ -99,10 +97,9 @@
           </div>
           <div class="scene-picker" id="reconstruction-scenes" tabindex="-1" role="group" aria-label="Reconstruction scene selection" hidden>
             <div class="scene-browser-header">
-              <div class="scene-filters" role="group" aria-label="Filter reconstruction scenes by category"></div>
               <p class="scene-count" role="status"></p>
             </div>
-            <div class="scene-groups"></div>
+            <div class="scene-list"></div>
           </div>
         </div>
       </section>
@@ -126,7 +123,6 @@
             <div class="viewer-info">
               <div class="scene-caption" id="generation-details" aria-live="polite" aria-atomic="true">
                 <h3 class="scene-title">Ceramics gallery</h3>
-                <p class="scene-category">Interiors</p>
               </div>
               <div class="viewer-actions">
                 <a class="browse-scenes" href="#generation-scenes" hidden>Browse scenes</a>
@@ -139,10 +135,9 @@
           </div>
           <div class="scene-picker" id="generation-scenes" tabindex="-1" role="group" aria-label="Generation scene selection" hidden>
             <div class="scene-browser-header">
-              <div class="scene-filters" role="group" aria-label="Filter generation scenes by category"></div>
               <p class="scene-count" role="status"></p>
             </div>
-            <div class="scene-groups"></div>
+            <div class="scene-list"></div>
           </div>
         </div>
       </section>
@@ -166,7 +161,6 @@
             <div class="viewer-info">
               <div class="scene-caption" id="extrapolation-details" aria-live="polite" aria-atomic="true">
                 <h3 class="scene-title">Living and dining room</h3>
-                <p class="scene-category">Interiors</p>
               </div>
               <div class="viewer-actions">
                 <a class="browse-scenes" href="#extrapolation-scenes" hidden>Browse scenes</a>
@@ -179,19 +173,25 @@
           </div>
           <div class="scene-picker" id="extrapolation-scenes" tabindex="-1" role="group" aria-label="Extrapolation scene selection" hidden>
             <div class="scene-browser-header">
-              <div class="scene-filters" role="group" aria-label="Filter extrapolation scenes by category"></div>
               <p class="scene-count" role="status"></p>
             </div>
-            <div class="scene-groups"></div>
+            <div class="scene-list"></div>
           </div>
         </div>
       </section>
     </div>
 
+    <section class="abstract" id="abstract" aria-labelledby="abstract-heading">
+      <div class="shell abstract-inner">
+        <h2 id="abstract-heading">Abstract</h2>
+        <p>Autoregressive diffusion world models deliver strong video generation performance, yet they typically output only RGB frames rather than explicit 3D Gaussian Splatting (3DGS) scene representations, creating a gap between learned visual world dynamics and usable 3D assets for downstream robotics, simulation and rendering. To bridge this gap, we introduce ArgsWorld, an autoregressive diffusion model that also produces an explicit 3DGS scene. For each generation chunk, the diffusion transformer jointly processes clean historical image latents and noisy latents for new views. It keeps the historical image latents fixed and refreshes the scene features so that the Gaussian representation can be revised as new regions come into view. Our 3D Self-Forcing Distillation trains the model on its own generated histories using a mixture of single-view and multi-view data. Distribution matching supervises direct image latents and latents of Gaussian renderings at both generation and additional cameras. ArgsWorld unifies 3D scene reconstruction from posed images, scene generation from image or text prompts, and scene extrapolation across camera segments with disconnected endpoints. Experimental results demonstrate that ArgsWorld achieves state-of-the-art performance across multiple 3D scene modeling tasks.</p>
+      </div>
+    </section>
+
     <section class="method" id="method" aria-labelledby="method-heading">
       <div class="shell method-inner">
         <div class="method-copy">
-          <h2 id="method-heading">Architecture</h2>
+          <h2 id="method-heading">Method Overview</h2>
           <p>ArgsWorld uses a shared autoregressive diffusion transformer to generate camera-conditioned views and build an explicit 3D Gaussian scene.</p>
         </div>
         <figure class="method-figure">
