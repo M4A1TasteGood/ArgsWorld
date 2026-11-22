@@ -15,9 +15,7 @@
 
 ## Demo
 
-Reconstruction, generation, and extrapolation results are on the [project page](https://m4a1tastegood.github.io/ArgsWorld/).
-
-Inference code is in this repository. Model weights are on [Hugging Face](https://huggingface.co/M4A1TasteGood/ArgsWorld).
+https://github.com/user-attachments/assets/e6e82b89-237c-4aa8-b41d-36556541f74f
 
 ## Setup
 
