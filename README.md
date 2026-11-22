@@ -1,6 +1,23 @@
-# ArgsWorld: Unifying 3DGS Scene Reconstruction, Generation and Extrapolation with Autoregressive Diffusion Transformer
+<p align="center">
+  <h1 align="center"><em>ArgsWorld: Unifying 3DGS Scene Reconstruction, Generation and Extrapolation with Autoregressive Diffusion Transformer</em></h1>
 
-Inference code for ArgsWorld. The ArgsWorld weights are available on [Hugging Face](https://huggingface.co/M4A1TasteGood/ArgsWorld).
+  <p align="center">
+    <a href="https://m4a1tastegood.github.io/ArgsWorld/"><img src="https://img.shields.io/badge/Project_Page-ArgsWorld-green" alt="Project Page"></a>
+    <a href="https://huggingface.co/M4A1TasteGood/ArgsWorld"><img src="https://img.shields.io/badge/Huggingface-Weights-yellow" alt="Hugging Face Weights"></a>
+  </p>
+
+  <p align="center">
+    <img src="assets/teaser.png" alt="ArgsWorld performs chunk-wise autoregressive 3DGS reconstruction, generation, and extrapolation. A bidirectional diffusion transformer turns camera conditions, reference frames, and history tokens into RGB frames and an explicit 3D Gaussian scene.">
+  </p>
+</p>
+
+***TL;DR:*** ArgsWorld unifies 3DGS scene **reconstruction**, **generation**, and **extrapolation** in one autoregressive diffusion transformer. From posed images, an image or text prompt, and a camera trajectory, it predicts new views and an explicit, renderable 3D Gaussian scene.
+
+## Demo
+
+Reconstruction, generation, and extrapolation results are on the [project page](https://m4a1tastegood.github.io/ArgsWorld/).
+
+Inference code is in this repository. Model weights are on [Hugging Face](https://huggingface.co/M4A1TasteGood/ArgsWorld).
 
 ## Setup
 
