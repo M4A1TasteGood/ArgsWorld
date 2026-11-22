@@ -75,18 +75,10 @@ section[id], #results { scroll-margin-top: 26px; }
   letter-spacing: -.035em;
 }
 .brand-mark {
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   flex: none;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 50%, currentColor 0 12%, transparent 17%),
-    radial-gradient(circle at 23% 40%, currentColor 0 8%, transparent 13%),
-    radial-gradient(circle at 78% 60%, currentColor 0 8%, transparent 13%),
-    radial-gradient(circle at 54% 17%, currentColor 0 6%, transparent 11%),
-    radial-gradient(circle at 46% 83%, currentColor 0 6%, transparent 11%);
-  transform: rotate(-24deg);
+  background: url("icon.png") center / contain no-repeat;
 }
 .site-header nav {
   display: flex;
