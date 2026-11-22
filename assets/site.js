@@ -2,6 +2,17 @@
 
 const byId = (id) => document.getElementById(id);
 const galleryVideos = document.querySelectorAll(".scene-video");
+const referenceImageObserver = "IntersectionObserver" in window
+  ? new IntersectionObserver((entries, observer) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const image = entry.target;
+        if (image.isConnected && image.dataset.src) image.src = image.dataset.src;
+        delete image.dataset.src;
+        observer.unobserve(image);
+      }
+    }, { rootMargin: "100px" })
+  : null;
 
 function enableGallery(section, scenes) {
   const viewer = section.querySelector(".viewer");
@@ -83,6 +94,9 @@ function enableGallery(section, scenes) {
 
     const hasInputs = inputs.length > 0;
     const list = referenceViews.querySelector(".reference-list");
+    if (referenceImageObserver) {
+      for (const oldImage of list.querySelectorAll("img[data-src]")) referenceImageObserver.unobserve(oldImage);
+    }
     const images = inputs.map(({ slot, src }) => {
       const item = document.createElement("li");
       const link = document.createElement("a");
@@ -92,11 +106,13 @@ function enableGallery(section, scenes) {
       link.setAttribute("aria-label", "Open input image from camera " + slot + " in a new tab");
 
       const image = document.createElement("img");
-      image.src = src;
       image.alt = "";
       image.width = 704;
       image.height = 480;
       image.decoding = "async";
+      image.loading = "lazy";
+      if (referenceImageObserver) image.dataset.src = src;
+      else image.src = src;
 
       const label = document.createElement("span");
       label.textContent = "Camera " + slot;
@@ -109,6 +125,9 @@ function enableGallery(section, scenes) {
     referenceViews.querySelector(".reference-count").textContent = inputs.length + (inputs.length === 1 ? " posed view" : " posed views");
     referenceViews.hidden = !hasInputs;
     viewer.classList.toggle("viewer--with-inputs", hasInputs);
+    if (referenceImageObserver) {
+      for (const image of list.querySelectorAll("img[data-src]")) referenceImageObserver.observe(image);
+    }
   }
 
   function showScene(scene, continuePlayback = false) {
@@ -149,12 +168,12 @@ function enableGallery(section, scenes) {
     thumbnail.className = "scene-thumbnail";
 
     const image = document.createElement("img");
-    image.src = "assets/gallery/" + scene.id + "-thumb.webp";
     image.alt = "";
     image.width = 320;
     image.height = 218;
     image.decoding = "async";
     image.loading = "lazy";
+    image.src = "assets/gallery/" + scene.id + "-thumb.webp";
 
     const playBadge = document.createElement("span");
     playBadge.className = "scene-thumbnail-play";
