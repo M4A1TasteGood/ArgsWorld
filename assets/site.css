@@ -121,13 +121,13 @@ section[id], #results { scroll-margin-top: 26px; }
   height: 100%;
   pointer-events: none;
 }
-.hero-video { z-index: -2; display: block; object-fit: cover; object-position: 50% 50%; }
+.hero-video { z-index: -2; display: block; object-fit: cover; object-position: 50% 50%; filter: brightness(1.34); }
 .hero::after {
   z-index: -1;
   content: "";
   background:
-    radial-gradient(ellipse at 50% 45%, #1219276b 3%, transparent 72%),
-    linear-gradient(180deg, #0b101eaa 0%, #121b2c57 32%, #121a2c74 65%, #0b1221ad 100%);
+    radial-gradient(ellipse at 50% 45%, #12192714 3%, transparent 72%),
+    linear-gradient(180deg, #0b101e3a 0%, #121b2c0c 32%, #121a2c22 65%, #0b122148 100%);
 }
 .hero-inner { display: grid; justify-items: center; text-align: center; }
 .hero h1 {
