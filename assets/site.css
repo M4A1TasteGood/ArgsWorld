@@ -566,3 +566,7 @@ section[id], #results { scroll-margin-top: 26px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+.demo-section { padding-block: 72px 20px; }
+.demo-section h2 { margin-bottom: 22px; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.demo-video { display: block; width: 100%; max-width: 1000px; margin-inline: auto; aspect-ratio: 16 / 9; background: #111729; border-radius: 12px; }
