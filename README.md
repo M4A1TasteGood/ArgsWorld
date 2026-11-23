@@ -15,7 +15,7 @@
 
 ## Demo
 
-https://github.com/user-attachments/assets/ad9ea8ae-9fef-4ba8-9f15-ffd43dc13c13
+assets/demo.mp4
 
 ## Setup
 
