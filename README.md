@@ -15,7 +15,7 @@
 
 ## Demo
 
-[Watch the demo video](https://github.com/M4A1TasteGood/ArgsWorld/blob/main/assets/demo.mp4)
+https://github.com/user-attachments/assets/ad9ea8ae-9fef-4ba8-9f15-ffd43dc13c13
 
 ## Setup
 
