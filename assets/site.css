@@ -568,5 +568,6 @@ section[id], #results { scroll-margin-top: 26px; }
 }
 
 .demo-section { padding-block: 72px 20px; }
-.demo-section h2 { margin-bottom: 22px; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.demo-section h2 { margin-bottom: 32px; color: #080808; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; text-align: center; }
+.demo-section h2::after { display: block; width: 90px; height: 4px; margin: 20px auto 0; border-radius: 999px; background: linear-gradient(90deg, #e879f9, #fb4f75); content: ""; }
 .demo-video { display: block; width: 100%; max-width: 1000px; margin-inline: auto; aspect-ratio: 16 / 9; background: #111729; border-radius: 12px; }
