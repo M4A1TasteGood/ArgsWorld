@@ -3,6 +3,7 @@
 
   <p align="center">
     <a href="https://m4a1tastegood.github.io/ArgsWorld/"><img src="https://img.shields.io/badge/Project_Page-ArgsWorld-green" alt="Project Page"></a>
+    <a href="https://arxiv.org/abs/2611.28792"><img src="https://img.shields.io/badge/arXiv-2611.28792-b31b1b" alt="Paper on arXiv"></a>
     <a href="https://huggingface.co/M4A1TasteGood/ArgsWorld"><img src="https://img.shields.io/badge/Huggingface-Weights-yellow" alt="Hugging Face Weights"></a>
   </p>
 
