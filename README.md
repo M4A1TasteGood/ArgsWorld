@@ -26,7 +26,7 @@ Use Linux, Python 3.11 or 3.12, and an NVIDIA GPU with BF16 support. Install the
 python -m pip install -r requirements.txt
 ```
 
-Download the ArgsWorld checkpoint from [Hugging Face](https://huggingface.co/M4A1TasteGood/ArgsWorld) and obtain the Wan2.2-TI2V-5B-Diffusers base model. Place them under `weights/`, or pass their actual paths in the commands below. The checkpoint path can point to a file or to a directory containing `model.ckpt`.
+Download the ArgsWorld checkpoint from [Hugging Face](https://huggingface.co/M4A1TasteGood/ArgsWorld) and obtain the Wan2.2-TI2V-5B-Diffusers base model. Place them under `weights/`.
 
 ## Inference
 
