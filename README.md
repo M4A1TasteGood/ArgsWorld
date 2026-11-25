@@ -88,3 +88,16 @@ For advanced inference options, including session continuation and additional qu
 We acknowledge the following open-source projects for their contributions and references to the field:
 - [FlashWorld](https://github.com/imlixinyang/FlashWorld)
 - [BiWM](https://github.com/LynnReal-AI/BiWM)
+## Citation
+
+```bibtex
+@misc{chen2026argsworldunifying3dgsscene,
+  title={ArgsWorld: Unifying 3DGS Scene Reconstruction, Generation and Extrapolation with Autoregressive Diffusion Transformer},
+  author={Weiming Chen and Shuaiyan Liu and Xinyu Shao and Zhewen Chen and Tian Guan and Yonghong He and Xitong Ling},
+  year={2026},
+  eprint={2611.28792},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2611.28792},
+}
+```
