@@ -18,6 +18,10 @@
 
 https://github.com/user-attachments/assets/28057c6a-7deb-4a01-8395-468338ec65d5
 
+### Preliminary Reproduction of World Labs Atlas
+
+https://github.com/user-attachments/assets/13863c87-7902-4985-9707-a0670e6f6b43
+
 ## Setup
 
 Use Linux, Python 3.11 or 3.12, and an NVIDIA GPU with BF16 support. Install the [CUDA builds of PyTorch and torchvision](https://pytorch.org/get-started/locally/), then install the remaining dependencies from the repository root:
